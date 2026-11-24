@@ -34,7 +34,7 @@
 
 ## Сборка
 
-Нужны Java 21+, Fabric Loader `>=0.20.1` и Fabric API для 1.21.11.
+Для запуска Gradle нужен **JDK 25+**: `fabric-loom 1.19` требует JVM 25. Сам мод компилируется с `release 21`, поэтому в Minecraft достаточно Java 21+, Fabric Loader `>=0.20.1` и Fabric API для 1.21.11.
 
 ```bash
 ./gradlew build
