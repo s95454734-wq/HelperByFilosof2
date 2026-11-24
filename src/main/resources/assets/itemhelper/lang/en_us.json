@@ -1,0 +1,10 @@
+{
+	"key.category.itemhelper.main": "Item Helper",
+	"key.itemhelper.use.fire_charge": "Use: Fire Charge",
+	"key.itemhelper.use.ender_eye": "Use: Eye of Ender",
+	"key.itemhelper.use.netherite_scrap": "Use: Netherite Scrap",
+	"key.itemhelper.use.dried_kelp": "Use: Dried Kelp",
+	"key.itemhelper.use.sugar": "Use: Sugar",
+	"key.itemhelper.use.phantom_membrane": "Use: Phantom Membrane",
+	"text.itemhelper.not_found": "Item Helper: %s not found"
+}

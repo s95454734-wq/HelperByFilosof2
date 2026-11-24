@@ -1,0 +1,10 @@
+{
+	"key.category.itemhelper.main": "Item Helper",
+	"key.itemhelper.use.fire_charge": "Использовать: огненный заряд",
+	"key.itemhelper.use.ender_eye": "Использовать: око Энда",
+	"key.itemhelper.use.netherite_scrap": "Использовать: незеритовый лом",
+	"key.itemhelper.use.dried_kelp": "Использовать: сушёная ламинария",
+	"key.itemhelper.use.sugar": "Использовать: сахар",
+	"key.itemhelper.use.phantom_membrane": "Использовать: мембрана фантома",
+	"text.itemhelper.not_found": "Item Helper: %s не найден"
+}
