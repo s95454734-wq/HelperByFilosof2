@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "itemhelper",
+	"version": "${version}",
+	"name": "Item Helper",
+	"description": "Быстрый хелпер предметов: ищет предмет в инвентаре, ставит в активный слот, использует ПКМ и возвращает обратно.",
+	"authors": [
+		"byFilosof"
+	],
+	"contact": {
+		"homepage": "https://github.com/s95454734-wq/HelperByFilosof2",
+		"sources": "https://github.com/s95454734-wq/HelperByFilosof2"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/itemhelper/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.byfilosof.ItemHelperMod"
+		],
+		"client": [
+			"com.byfilosof.client.ItemHelperClient"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.20.1",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
