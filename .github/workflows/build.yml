@@ -38,7 +38,7 @@ jobs:
       # Ручной запуск дополнительно публикует jar в текущую ветку,
       # чтобы его можно было забрать из окружения без доступа к blob-хранилищу Actions.
       - name: publish jar to current branch
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[publish-jar]'))
         env:
           GH_TOKEN: ${{ github.token }}
           BRANCH: ${{ github.ref_name }}
