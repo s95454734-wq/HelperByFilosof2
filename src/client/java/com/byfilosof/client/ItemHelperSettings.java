@@ -8,16 +8,22 @@ public final class ItemHelperSettings {
 	public static final int MAIN_INVENTORY_SIZE = 36;
 
 	/**
-	 * Тиков ожидания после подмены/смены слота перед ПКМ.
-	 * 1 тик = 50 мс при 20 TPS. Ноль делает всё в один тик.
+	 * Тиков ожидания после подмены/смены слота перед первой проверкой руки.
+	 * 1 тик = 50 мс при 20 TPS.
 	 */
 	public static final int USE_DELAY_TICKS = 1;
 
 	/**
 	 * Тиков ожидания после ПКМ перед возвратом предмета.
-	 * Ноль возвращает в тот же тик, 1 даёт ещё ~50 мс.
+	 * 1 тик даёт серверу время обработать использование до обратного SWAP.
 	 */
-	public static final int RESTORE_DELAY_TICKS = 0;
+	public static final int RESTORE_DELAY_TICKS = 1;
+
+	/**
+	 * Сколько тиков ждать, пока нужный предмет подтвердится в активном слоте.
+	 * Если за это время предмет не появился — ПКМ не выполняется.
+	 */
+	public static final int HAND_CHECK_TIMEOUT_TICKS = 6;
 
 	/** Максимум нажатий в очереди, чтобы удержание клавиши не спамило пакетами. */
 	public static final int MAX_QUEUED_USES = 12;

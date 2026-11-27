@@ -4,7 +4,14 @@
 # against bad commits.
 
 name: build
-on: [pull_request, push]
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -28,3 +35,24 @@ jobs:
         with:
           name: Artifacts
           path: build/libs/
+      # Ручной запуск дополнительно публикует jar в текущую ветку,
+      # чтобы его можно было забрать из окружения без доступа к blob-хранилищу Actions.
+      - name: publish jar to current branch
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' | head -n 1)
+          test -n "$JAR"
+          B64=$(base64 -w 0 "$JAR")
+          FILE_PATH="dist/itemhelper-1.0.0.jar"
+          API="repos/${GITHUB_REPOSITORY}/contents/${FILE_PATH}"
+          SHA=$(gh api "${API}?ref=${BRANCH}" --jq .sha 2>/dev/null || true)
+          ARGS=(--method PUT -f message="[skip ci] publish built jar" -f content="$B64" -f branch="$BRANCH")
+          if [ -n "$SHA" ]; then
+            ARGS+=(-f sha="$SHA")
+          fi
+          gh api "$API" "${ARGS[@]}" > /dev/null
+          echo "Published $(basename "$JAR") -> ${FILE_PATH} on ${BRANCH}"

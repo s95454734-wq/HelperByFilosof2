@@ -6,5 +6,6 @@
 	"key.itemhelper.use.dried_kelp": "Использовать: сушёная ламинария",
 	"key.itemhelper.use.sugar": "Использовать: сахар",
 	"key.itemhelper.use.phantom_membrane": "Использовать: мембрана фантома",
-	"text.itemhelper.not_found": "Item Helper: %s не найден"
+	"text.itemhelper.not_found": "Item Helper: %s не найден",
+	"text.itemhelper.not_ready": "Item Helper: %s не успел попасть в активный слот"
 }

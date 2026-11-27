@@ -6,5 +6,6 @@
 	"key.itemhelper.use.dried_kelp": "Use: Dried Kelp",
 	"key.itemhelper.use.sugar": "Use: Sugar",
 	"key.itemhelper.use.phantom_membrane": "Use: Phantom Membrane",
-	"text.itemhelper.not_found": "Item Helper: %s not found"
+	"text.itemhelper.not_found": "Item Helper: %s not found",
+	"text.itemhelper.not_ready": "Item Helper: %s did not reach the active slot in time"
 }

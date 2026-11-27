@@ -48,6 +48,20 @@ public final class ItemHelperEngine {
 
 			switch (active.stage) {
 				case WAIT_USE -> {
+					// Главная проверка: не жмём ПКМ, пока сервер/клиент не подтвердили,
+					// что нужный предмет действительно лежит в активном слоте.
+					if (!holding(client, active.requested)) {
+						active.handCheckTicks++;
+						if (active.handCheckTicks >= ItemHelperSettings.HAND_CHECK_TIMEOUT_TICKS) {
+							notifyNotReady(client, active.requested);
+							restore(client, active);
+							active = null;
+							return;
+						}
+						active.delayTicks = 1;
+						return;
+					}
+
 					use(client);
 					active.stage = Stage.WAIT_RESTORE;
 					active.delayTicks = ItemHelperSettings.RESTORE_DELAY_TICKS;
@@ -104,7 +118,10 @@ public final class ItemHelperEngine {
 			return null;
 		}
 
-		ActiveUse use = new ActiveUse(originalSelected, ItemHelperSettings.USE_DELAY_TICKS);
+		ActiveUse use = new ActiveUse(
+				helperItem,
+				originalSelected,
+				ItemHelperSettings.USE_DELAY_TICKS);
 
 		if (sourceSlot < ItemHelperSettings.HOTBAR_SIZE) {
 			// Предмет в другом слоте хотбара: переключаем выбранный слот.
@@ -127,6 +144,12 @@ public final class ItemHelperEngine {
 		}
 
 		return use;
+	}
+
+	private static boolean holding(Minecraft client, HelperItem item) {
+		LocalPlayer player = client.player;
+		return player != null
+				&& player.getInventory().getSelectedItem().is(item.item());
 	}
 
 	private static void use(Minecraft client) {
@@ -185,20 +208,33 @@ public final class ItemHelperEngine {
 				true);
 	}
 
+	private static void notifyNotReady(Minecraft client, HelperItem item) {
+		if (client.player == null) {
+			return;
+		}
+		client.player.displayClientMessage(
+				Component.translatable("text.itemhelper.not_ready",
+						Component.translatable(item.displayKey())),
+				true);
+	}
+
 	private enum Stage {
 		WAIT_USE,
 		WAIT_RESTORE
 	}
 
 	private static final class ActiveUse {
+		private final HelperItem requested;
 		private final int originalSelected;
 		private int menuSlot = -1;
 		private boolean swapped;
 		private boolean switchedHotbar;
+		private int handCheckTicks;
 		private int delayTicks;
 		private Stage stage = Stage.WAIT_USE;
 
-		private ActiveUse(int originalSelected, int delayTicks) {
+		private ActiveUse(HelperItem requested, int originalSelected, int delayTicks) {
+			this.requested = requested;
 			this.originalSelected = originalSelected;
 			this.delayTicks = delayTicks;
 		}
